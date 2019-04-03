@@ -6,7 +6,7 @@
     "start": "concurrently \"npm run build -- --watch\" \"nodemon --exec babel-node src/bin/www.js\"",
     "build": "babel src/ --out-dir build/ --source-maps inline --copy-files --ignore spec.js",
     "eslint-check": "eslint --print-config .eslintrc.js | eslint-config-prettier-check",
-    "lint": "eslint src/*/*.js --config .eslintrc.js",
+    "lint": "eslint src/*/*.js --config .eslintrc.json",
     "test": "npx mocha tests/**/*.spec.js --require babel-register",
     "test:tdd": "npx mocha tests/**/*.spec.js --require babel-register --watch",
     "test:coverage": "nyc npm test",
