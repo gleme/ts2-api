@@ -1,16 +1,14 @@
 // @flow
 
 class MedicalSpecialty {
-
     code: number;
     name: string;
 
-    constructor(code: number, name: string) {
-        this.code = code;
+    constructor(name: string) {
         this.name = name;
     }
 }
 
 module.exports = {
-    MedicalSpecialty: MedicalSpecialty,
+    MedicalSpecialty: MedicalSpecialty
 };

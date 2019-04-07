@@ -1,17 +1,14 @@
 // @flow
 
 class MedicalProcedure {
+    code: number;
+    name: string;
 
-  code: number;
-  name: string;
-
-  constructor(code: number, name: string) {
-    this.code = code;
-    this.name = name;
-  }
-
+    constructor(name: string) {
+        this.name = name;
+    }
 }
 
 module.exports = {
-  MedicalProcedure: MedicalProcedure,
+    MedicalProcedure: MedicalProcedure
 };
