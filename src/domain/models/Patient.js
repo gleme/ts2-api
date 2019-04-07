@@ -1,27 +1,17 @@
-const { Model, STRING, INT } = require('sequelize');
+// @flow
 
-class Person extends Model {
+const { Person } = require('./person');
+const { MedicalConsultation } = require('./medical-consultation');
+
+class Patient extends Person {
+  consultations: MedicalConsultation[];
+
+  constructor(cpf: number, name: string) {
+    super(cpf, name);
+  }
 
 }
 
-Person.init({
-    cpf: {
-        type: INT,
-    },
-    name: {
-        type: STRING,
-        a
-    },
-    birthDate: {
-
-    },
-    gender: {
-
-    },
-    address: {
-
-    },
-    phoneNumber: {
-    
-    }
-});
+module.exports = {
+    Patient: Patient,
+};
