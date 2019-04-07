@@ -1,9 +1,12 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const physicianRouter = require('./physician');
 
-/* GET home page. */
-router.get('/', function(req, res) {
-    res.status(200).json({ message: 'Hello World' });
+router.use('/physician', physicianRouter);
+
+router.get('/', (req, res) => {
+    console.log(req.app.locals.mysqlDb);
+    res.status(200).end();
 });
 
 module.exports = router;
