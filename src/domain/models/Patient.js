@@ -5,23 +5,23 @@ class Person extends Model {
 }
 
 Person.init({
-  cpf: {
-    type: INT,
-  },
-  name: {
-    type: STRING,
-    a
-  },
-  birthDate: {
+    cpf: {
+        type: INT,
+    },
+    name: {
+        type: STRING,
+        a
+    },
+    birthDate: {
 
-  },
-  gender: {
+    },
+    gender: {
 
-  },
-  address: {
+    },
+    address: {
 
-  },
-  phoneNumber: {
+    },
+    phoneNumber: {
     
-  }
-})
+    }
+});
