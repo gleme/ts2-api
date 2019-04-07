@@ -1,53 +1,45 @@
-#!/usr/bin/env node
+/**
+ * Load Environment Variables
+ */
+require('dotenv').config();
+const { createConnection, getConnectionOptions } = require('typeorm');
+const { host, port, env } = require('../config/api.config');
+const app = require('../app');
+const http = require('http');
+const { getLogger } = require('../services/logger.service');
 
 /**
- * Module dependencies.
+ * Configure API Logger
  */
-
-var app = require('../app');
-var debug = require('debug')('express-boilerplate:server');
-var http = require('http');
+const logger = getLogger('api');
 
 /**
- * Get port from environment and store in Express.
+ * Create Database Connection Pool
  */
-
-var port = normalizePort(process.env.PORT || '3000');
-app.set('port', port);
+createConnection()
+    .then(async connection => {
+        const { type, host, port, database } = await getConnectionOptions();
+        logger.info(`connected to instance ${type}://${host}:${port}/${database}`);
+        app.locals.mysqlDb = connection;
+    })
+    .catch(error => {
+        logger.error(error);
+        throw error;
+    });
 
 /**
  * Create HTTP server.
  */
-
-var server = http.createServer(app);
+app.set('port', port);
+const server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
-
-/**
- * Normalize a port into a number, string, or false.
- */
-
-function normalizePort(val) {
-    var port = parseInt(val, 10);
-
-    if (isNaN(port)) {
-    // named pipe
-        return val;
-    }
-
-    if (port >= 0) {
-    // port number
-        return port;
-    }
-
-    return false;
-}
+server.listen(port, host);
 
 /**
  * Event listener for HTTP server "error" event.
@@ -58,22 +50,16 @@ function onError(error) {
         throw error;
     }
 
-    var bind = typeof port === 'string'
-        ? 'Pipe ' + port
-        : 'Port ' + port;
+    const bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
 
     // handle specific listen errors with friendly messages
     switch (error.code) {
-    case 'EACCES':
-        console.error(bind + ' requires elevated privileges');
-        process.exit(1);
-        break;
-    case 'EADDRINUSE':
-        console.error(bind + ' is already in use');
-        process.exit(1);
-        break;
-    default:
-        throw error;
+        case 'EACCES':
+            throw new Error(bind + ' requires elevated privileges');
+        case 'EADDRINUSE':
+            throw new Error(bind + 'is already in use');
+        default:
+            throw error;
     }
 }
 
@@ -82,9 +68,7 @@ function onError(error) {
  */
 
 function onListening() {
-    var addr = server.address();
-    var bind = typeof addr === 'string'
-        ? 'pipe ' + addr
-        : 'port ' + addr.port;
-    debug('Listening on ' + bind);
+    const addr = server.address();
+    const bind = typeof addr === 'string' ? addr : addr.port;
+    logger.info(`'stagiop-ts2-api' started on ${addr.address}:${bind} - environment: ${env}`);
 }

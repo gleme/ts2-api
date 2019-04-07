@@ -31,11 +31,22 @@
     "all": true,
     "sourceMap": false,
     "instrument": false,
-    "reporter": ["text", "html"],
-    "require": ["@babel/register"],
-    "extension": [".js"],
-    "include": ["src/**"],
-    "exclude": ["tests/**"]
+    "reporter": [
+      "text",
+      "html"
+    ],
+    "require": [
+      "@babel/register"
+    ],
+    "extension": [
+      ".js"
+    ],
+    "include": [
+      "src/**"
+    ],
+    "exclude": [
+      "tests/**"
+    ]
   },
   "dependencies": {
     "async": "^2.6.2",
@@ -45,10 +56,12 @@
     "debug": "~2.6.9",
     "dotenv": "^7.0.0",
     "express": "~4.16.0",
+    "express-boom": "^3.0.0",
     "lodash": "^4.17.11",
     "log4js": "^4.1.0",
     "moment": "^2.24.0",
     "morgan": "~1.9.0",
+    "mysql": "^2.16.0",
     "typeorm": "^0.2.16"
   },
   "devDependencies": {
