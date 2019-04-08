@@ -3,26 +3,36 @@
 const GENDER = Object.freeze({
     MALE: 'M',
     FEMALE: 'F',
-    NA: 'N/A',
+    NA: 'N/A'
 });
 
-type Gender = $Values<typeof GENDER>;
+export type Gender = $Values<typeof GENDER>;
 
 class Person {
-
     cpf: number;
     name: string;
     birthDate: Date;
     gender: Gender;
     address: string;
-    phone: string;
+    phone: number;
 
-    constructor(cpf: number, name: string) {
+    constructor(
+        cpf: number,
+        name: string,
+        birthDate: Date,
+        gender: Gender,
+        address: string,
+        phone: string
+    ) {
         this.cpf = cpf;
         this.name = name;
+        this.birthDate = birthDate;
+        this.gender = gender;
+        this.address = address;
+        this.phone = phone;
     }
 }
 
 module.exports = {
-    Person: Person,
+    Person: Person
 };

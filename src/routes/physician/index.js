@@ -1,6 +1,8 @@
 const express = require('express');
+const { In } = require('typeorm');
 const router = express.Router();
 const { Physician } = require('../../domain/model/physician');
+const { MedicalSpecialty } = require('../../domain/model/medical-specialty');
 const { injectRepository } = require('../../middlewares/repository');
 const specialtyRouter = require('./medical-specialty');
 
@@ -19,8 +21,26 @@ router.get('/', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
     try {
-        const { cpf, name, crm, specialties } = req.body;
-        const physician = new Physician(cpf, name, crm, specialties);
+        const { cpf, name, birthDate, gender, address, phone, crm, specialties } = req.body;
+        const physician = new Physician(
+            cpf,
+            name,
+            birthDate,
+            gender,
+            phone,
+            address,
+            crm,
+            specialties
+        );
+
+        const specialtiesObj = await req.app.locals.mysqlDb.getRepository(MedicalSpecialty).find({
+            where: {
+                id: In(specialties.map(spec => spec.code))
+            }
+        });
+
+        physician.specialties = specialtiesObj;
+
         await req.app.locals.repository.save(physician);
         res.status(200).end();
     } catch (error) {
