@@ -14,6 +14,26 @@ const { getLogger } = require('../services/logger.service');
 const logger = getLogger('api');
 
 /**
+ * Gracefully shutdown the process
+ */
+process.on('uncaughtException', () => {
+    try {
+        server.close();
+    } catch (error) {
+        throw error;
+    }
+});
+
+process.on('SIGTERM', () => {
+    try {
+        app.locals.mysqlDb.close();
+        server.close();
+    } catch (error) {
+        throw error;
+    }
+});
+
+/**
  * Create Database Connection Pool
  */
 createConnection()
@@ -57,7 +77,7 @@ function onError(error) {
         case 'EACCES':
             throw new Error(bind + ' requires elevated privileges');
         case 'EADDRINUSE':
-            throw new Error(bind + 'is already in use');
+            throw new Error(bind + ' is already in use');
         default:
             throw error;
     }
