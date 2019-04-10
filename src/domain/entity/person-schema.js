@@ -18,8 +18,8 @@ module.exports = new EntitySchema({
             type: 'date'
         },
         gender: {
-            type: 'varchar',
-            length: 127
+            type: 'enum',
+            enum: ['M', 'F', 'N/A']
         },
         phone: {
             type: 'int',

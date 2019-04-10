@@ -8,13 +8,21 @@ module.exports = new EntitySchema({
     columns: {
         crm: {
             type: 'varchar',
-            length: '15'
+            length: '15',
+            unique: true
         }
     },
     relations: {
         specialties: {
             target: 'MedicalSpecialty',
-            type: 'one-to-many'
+            type: 'many-to-many',
+            joinTable: {
+                name: 'physician_specialty',
+                joinColumn: {
+                    name: 'physicianCpf',
+                    referencedColumnName: 'cpf'
+                }
+            }
         }
     }
 });
