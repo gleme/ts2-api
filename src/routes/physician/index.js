@@ -45,10 +45,45 @@ router.post('/', async (req, res, next) => {
     }
 });
 
-router.put('/:cpf', async (req, res, next) => {
+router.get('/:cpf', async (req, res, next) => {
     try {
         const { cpf } = req.params;
-        const { name, specialties } = req.body;
+        const physician = await req.app.locals.repository.findOne(cpf);
+        res.status(200).json(physician);
+    } catch (error) {
+        next(error);
+    }
+});
+
+// router.put('/:cpf', async (req, res, next) => {
+//     try {
+//         const { cpf } = req.params;
+//         const { name, birthDate, gender, address, phone, crm, specialties } = req.body;
+//         const specialtiesObj = await req.app.locals.mysqlDb.getRepository(MedicalSpecialty).find({
+//             where: {
+//                 id: In(specialties.map(spec => spec.code))
+//             }
+//         });
+
+//         await req.app.locals.repository.update(cpf, {
+//             name,
+//             birthDate,
+//             gender,
+//             address,
+//             phone,
+//             crm,
+//             specialties: specialtiesObj
+//         });
+//         res.status(204).end();
+//     } catch (error) {
+//         next(error);
+//     }
+// });
+
+router.delete('/:cpf', async (req, res, next) => {
+    try {
+        const { cpf } = req.params;
+        await req.app.locals.repository.delete(cpf);
         res.status(204).end();
     } catch (error) {
         next(error);

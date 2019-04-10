@@ -16,6 +16,7 @@ module.exports = new EntitySchema({
         specialties: {
             target: 'MedicalSpecialty',
             type: 'many-to-many',
+            cascade: true,
             joinTable: {
                 name: 'physician_specialty',
                 joinColumn: {

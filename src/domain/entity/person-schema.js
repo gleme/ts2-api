@@ -14,6 +14,10 @@ module.exports = new EntitySchema({
             type: 'varchar',
             length: 127
         },
+        address: {
+            type: 'varchar',
+            length: 255
+        },
         birthDate: {
             type: 'date'
         },
