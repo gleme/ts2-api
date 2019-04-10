@@ -22,7 +22,7 @@ class Person {
         birthDate: Date,
         gender: Gender,
         address: string,
-        phone: string
+        phone: number
     ) {
         this.cpf = cpf;
         this.name = name;

@@ -1,6 +1,6 @@
 // @flow
-
-const { Person, Gender } = require('./person');
+import type { Gender } from './person';
+const { Person } = require('./person');
 const { MedicalSpecialty } = require('./medical-specialty');
 
 class Physician extends Person {
@@ -12,7 +12,7 @@ class Physician extends Person {
         name: string,
         birthDate: Date,
         gender: Gender,
-        phone: string,
+        phone: number,
         address: string,
         crm: string,
         specialties: MedicalSpecialty[]
