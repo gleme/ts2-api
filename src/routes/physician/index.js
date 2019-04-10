@@ -22,6 +22,11 @@ router.get('/', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
     try {
         const { cpf, name, birthDate, gender, address, phone, crm, specialties } = req.body;
+        const specialtiesObj = await req.app.locals.mysqlDb.getRepository(MedicalSpecialty).find({
+            where: {
+                id: In(specialties.map(spec => spec.code))
+            }
+        });
         const physician = new Physician(
             cpf,
             name,
@@ -30,16 +35,8 @@ router.post('/', async (req, res, next) => {
             phone,
             address,
             crm,
-            specialties
+            specialtiesObj
         );
-
-        const specialtiesObj = await req.app.locals.mysqlDb.getRepository(MedicalSpecialty).find({
-            where: {
-                id: In(specialties.map(spec => spec.code))
-            }
-        });
-
-        physician.specialties = specialtiesObj;
 
         await req.app.locals.repository.save(physician);
         res.status(200).end();
