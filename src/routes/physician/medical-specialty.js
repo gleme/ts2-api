@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { MedicalSpecialty } = require('../../domain/model/medical-specialty');
 const { injectRepository } = require('../../middlewares/repository');
+const { body, check, validationResult } = require('express-validator/check');
 
 router.all('*', injectRepository(MedicalSpecialty));
 
@@ -14,7 +15,13 @@ router.get('/', async (req, res, next) => {
     }
 });
 
-router.post('/', async (req, res, next) => {
+router.post('/', [
+    check('name').not().isEmpty().withMessage('Speciality name cannot be empty.'),
+], async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+    }
     try {
         const { name } = req.body;
         const specialty = new MedicalSpecialty(name);

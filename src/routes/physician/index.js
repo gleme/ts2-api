@@ -5,7 +5,7 @@ const { Physician } = require('../../domain/model/physician');
 const { MedicalSpecialty } = require('../../domain/model/medical-specialty');
 const { injectRepository } = require('../../middlewares/repository');
 const specialtyRouter = require('./medical-specialty');
-const { body, check, validationResult } = require('express-validator/check');
+const { check, validationResult } = require('express-validator/check');
 
 router.use('/specialty', specialtyRouter);
 
@@ -21,20 +21,46 @@ router.get('/', async (req, res, next) => {
 });
 
 router.post('/', [
-    check('cpf').not().isEmpty().withMessage('Cpf cannot be empty.'),
-    check('name').not().isEmpty().withMessage('Name cannot be empty'),
-    check('birthDate').not().isEmpty().withMessage('Birthdate cannot be empty.'),
+    check('cpf').not().isEmpty().withMessage('Physician Cpf cannot be empty.'),
+    check('cpf').custom(async (cpf, { req }) => {
+        const physicianObj = await req.app.locals.mysqlDb.getRepository(Physician).find({
+            where: {
+                cpf: cpf
+            }
+        });
+
+        if(physicianObj.length) {
+            throw new Error('Physician with this cpf already exists in database.');
+        }
+
+        return true;
+    }),
+    check('name').not().isEmpty().withMessage('Physician Name cannot be empty'),
+    check('birthDate').not().isEmpty().withMessage('Physician Birthdate cannot be empty.'),
     check('birthDate').custom(date => {
         var timestamp = Date.parse(date);
         if (isNaN(timestamp)) {
-            throw new Error('Birthdate is not a valid Date.');
+            throw new Error('Physician Birthdate is not a valid Date.');
         }
         return true;
     }),
-    check('gender').not().isEmpty().withMessage('Gender cannot be empty.'),
-    check('address').not().isEmpty().withMessage('Address cannot be empty.'),
-    check('phone').not().isEmpty().withMessage('Phone cannot be empty.'),
-    check('crm').not().isEmpty().withMessage('Crm cannot be empty.'),
+    check('gender').not().isEmpty().withMessage('Physician Gender cannot be empty.'),
+    check('address').not().isEmpty().withMessage('Physician Address cannot be empty.'),
+    check('phone').not().isEmpty().withMessage('Physician Phone cannot be empty.'),
+    check('crm').not().isEmpty().withMessage('Physician Crm cannot be empty.'),
+    check('crm').custom(async (crm, { req }) => {
+        const physicianObj = await req.app.locals.mysqlDb.getRepository(Physician).find({
+            where: {
+                crm: crm
+            }
+        });
+
+        if(physicianObj.length) {
+            throw new Error('Physician with this crm already exists in database.');
+        }
+
+        return true;
+    }),
     check('specialties').custom(async (specialties, { req }) => {
         const specialtiesObj = await req.app.locals.mysqlDb.getRepository(MedicalSpecialty).find({
             where: {
@@ -45,7 +71,7 @@ router.post('/', [
         if(req.body.specialties.length != specialtiesObj.length) {
             throw new Error('One or more speciality was not recognized in database.');
         }
-        
+
         return true;
     }),
 ], async (req, res, next) => {
