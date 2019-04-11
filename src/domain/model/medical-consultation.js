@@ -4,7 +4,6 @@ const { Patient } = require('./patient');
 const { MedicalProcedure } = require('./medical-procedure');
 
 class MedicalConsultation {
-
     protocol: number;
     date: Date;
     prescription: string;
@@ -12,8 +11,7 @@ class MedicalConsultation {
     physician: Physician;
     procedures: MedicalProcedure[];
 
-    constructor(protocol: number, date: Date, prescription: string, patient: Patient, physician: Physician) {
-        this.protocol = protocol;
+    constructor(date: Date, prescription: string, patient: Patient, physician: Physician) {
         this.date = date;
         this.prescription = prescription;
         this.patient = patient;
@@ -22,5 +20,5 @@ class MedicalConsultation {
 }
 
 module.exports = {
-    MedicalConsultation: MedicalConsultation,
+    MedicalConsultation: MedicalConsultation
 };
