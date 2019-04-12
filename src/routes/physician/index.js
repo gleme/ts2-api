@@ -22,6 +22,13 @@ router.get('/', async (req, res, next) => {
 
 router.post('/', [
     check('cpf').not().isEmpty().withMessage('Physician Cpf cannot be empty.'),
+    check('cpf').custom( cpf => {
+        if((''+cpf).replace(new RegExp('[0-9]', 'g'), '').length > 0) {
+            throw new Error('Physician Cpf contains invalid characters. Use only digits.');
+        }
+
+        return true;
+    }),
     check('cpf').custom(async (cpf, { req }) => {
         const physicianObj = await req.app.locals.mysqlDb.getRepository(Physician).find({
             where: {
