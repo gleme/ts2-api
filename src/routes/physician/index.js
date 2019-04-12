@@ -23,7 +23,9 @@ router.get('/', async (req, res, next) => {
 router.post('/', [
     check('cpf').not().isEmpty().withMessage('Physician Cpf cannot be empty.'),
     check('cpf').custom( cpf => {
-        if((''+cpf).replace(new RegExp('[0-9]', 'g'), '').length > 0) {
+        const tempCpf = (''+cpf).toLowerCase().replace(new RegExp('[0-9]', 'g'), '');
+
+        if((tempCpf.length > 1) || (tempCpf.length == 1 && tempCpf[0] != 'x')) {
             throw new Error('Physician Cpf contains invalid characters. Use only digits.');
         }
 
