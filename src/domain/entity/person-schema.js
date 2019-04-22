@@ -7,7 +7,7 @@ module.exports = new EntitySchema({
     columns: {
         cpf: {
             primary: true,
-            type: 'int',
+            type: 'bigint',
             width: 11
         },
         name: {
