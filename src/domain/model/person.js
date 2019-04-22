@@ -1,4 +1,5 @@
 // @flow
+const isValidCPF = require('@fnando/cpf/dist/node').isValid;
 
 const GENDER = Object.freeze({
     MALE: 'M',
@@ -30,6 +31,10 @@ class Person {
         this.gender = gender;
         this.address = address;
         this.phone = phone;
+    }
+
+    set cpf(value) {
+        if (!isValidCPF(value)) throw new Error('Invalid CPF');
     }
 }
 
