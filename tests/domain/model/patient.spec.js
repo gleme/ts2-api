@@ -11,7 +11,7 @@ describe('Patient', () => {
         describe('contructor', () => {
             it('should create a new instance of a Patient', () => {
                 const patient = new Patient(
-                    1234,
+                    38536211121,
                     'Jorge da Silva',
                     new Date(),
                     'M',

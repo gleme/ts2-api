@@ -9,7 +9,6 @@ describe('Physician', () => {
         });
     });
     describe('contructor', () => {
-        // it('should create')
         it('should create a new instance of a physician', () => {
             const specialties = [
                 new MedicalSpecialty('Pediatria'),
@@ -17,7 +16,7 @@ describe('Physician', () => {
                 new MedicalSpecialty('Psiquiatria')
             ];
             const physician = new Physician(
-                1234,
+                38536211121,
                 'Jorge da Silva',
                 new Date(),
                 'M',
