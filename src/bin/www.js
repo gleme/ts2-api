@@ -3,7 +3,9 @@
  */
 require('dotenv').config();
 const { createConnection, getConnectionOptions } = require('typeorm');
+const { MongoClient } = require('mongodb');
 const { host, port, env } = require('../config/api.config');
+const { getURI, database } = require('../config/mongo.config');
 const app = require('../app');
 const http = require('http');
 const { getLogger } = require('../services/logger.service');
@@ -34,7 +36,7 @@ process.on('SIGTERM', () => {
 });
 
 /**
- * Create Database Connection Pool
+ * Create MySQL Database Connection Pool
  */
 createConnection()
     .then(async connection => {
@@ -44,6 +46,21 @@ createConnection()
     })
     .catch(error => {
         logger.error(error);
+        throw error;
+    });
+
+/**
+ *  Create MongoDB Connection Pool
+ */
+const mongoClient = new MongoClient(getURI());
+mongoClient
+    .connect()
+    .then(() => {
+        logger.info(`connected to mongodb instance ${getURI()}`);
+        app.locals.mongoDb = mongoClient.db(database);
+    })
+    .catch(error => {
+        logger.error(error.stack);
         throw error;
     });
 
