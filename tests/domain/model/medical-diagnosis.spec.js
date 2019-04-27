@@ -1,5 +1,5 @@
 const { expect } = require('chai');
-const { MedicalDiagnosis } = require('../../../src/domain/model/medical-diagnosis');
+const { MedicalDiagnosis, Category } = require('../../../src/domain/model/medical-diagnosis');
 const { Symptom } = require('../../../src/domain/model/symptom');
 
 describe('MedicalDiagnosis', () => {
@@ -10,6 +10,7 @@ describe('MedicalDiagnosis', () => {
     });
     context('Valid data', () => {
         let symptoms = null;
+        let category = null;
         beforeEach(() => {
             symptoms = [
                 new Symptom('erupções de pele'),
@@ -17,6 +18,7 @@ describe('MedicalDiagnosis', () => {
                 new Symptom('febre alta'),
                 new Symptom('tosse persistente')
             ];
+            category = new Category('B050', 'Sarampo');
         });
 
         describe('contructor', () => {
@@ -24,6 +26,7 @@ describe('MedicalDiagnosis', () => {
                 const diagnosis = new MedicalDiagnosis(
                     'B051',
                     'Sarampo complicado por meningite',
+                    category,
                     symptoms
                 );
                 expect(diagnosis).to.be.an.instanceOf(MedicalDiagnosis);
