@@ -1,5 +1,4 @@
 // @flow
-const { Symptom } = require('./symptom');
 
 class Category {
     code: string;
@@ -15,9 +14,10 @@ class MedicalDiagnosis {
     code: string;
     description: string;
     category: Category;
-    symptoms: Symptom[];
+    symptoms: string[];
+    info: string;
 
-    constructor(code: string, description: string, category: Category, symptoms: Symptom[]) {
+    constructor(code: string, description: string, category: Category, symptoms: string[]) {
         this.code = code;
         this.description = description;
         this.category = category;
