@@ -3,25 +3,25 @@
  */
 
 function normalizePort(val) {
-    const port = parseInt(val, 10);
+  const port = parseInt(val, 10);
 
-    if (isNaN(port)) {
-        // named pipe
-        return val;
-    }
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
 
-    if (port >= 0) {
-        // port number
-        return port;
-    }
+  if (port >= 0) {
+    // port number
+    return port;
+  }
 
-    return false;
+  return false;
 }
 
 const port = normalizePort(process.env.PORT || 3000);
 
 module.exports = {
-    host: process.env.HOST || 'localhost',
-    port: port,
-    env: process.env.NODE_ENV || 'development'
+  host: process.env.HOST || 'localhost',
+  port: port,
+  env: process.env.NODE_ENV || 'development'
 };

@@ -6,11 +6,11 @@ const { config, levels } = require('../config/logger.config');
 log4js.configure(config);
 
 function getLogger(category) {
-    const logger = log4js.getLogger(category);
-    logger.level = levels[env];
-    return logger;
+  const logger = log4js.getLogger(category);
+  logger.level = levels[env];
+  return logger;
 }
 
 module.exports = {
-    getLogger: getLogger
+  getLogger: getLogger
 };
