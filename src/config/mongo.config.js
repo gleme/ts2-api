@@ -7,15 +7,15 @@ const port = process.env.MONGODB_PORT || 27017;
 const URI = process.env.MONGODB_URI || getURI;
 
 function getURI() {
-    return `mongodb+srv://${username}:${password}@${host}:${port}/${database}`;
+  return `mongodb+srv://${username}:${password}@${host}/${database}`;
 }
 
 module.exports = {
-    getURI,
-    username,
-    database,
-    authDb,
-    host,
-    port,
-    URI
+  getURI,
+  username,
+  database,
+  authDb,
+  host,
+  port,
+  URI
 };
