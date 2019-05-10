@@ -6,7 +6,8 @@
     "node": ">=8.9.4"
   },
   "scripts": {
-    "start": "concurrently \"npm run build -- --watch\" \"nodemon --exec babel-node src/bin/www.js\"",
+    "start": "node build/bin/www.js",
+    "start:dev": "concurrently \"npm run build -- --watch\" \"nodemon --exec babel-node src/bin/www.js\"",
     "build": "babel src/ --out-dir build/ --source-maps inline --copy-files --ignore spec.js",
     "eslint-check": "eslint --print-config .eslintrc.js | eslint-config-prettier-check",
     "flow": "flow",
@@ -49,6 +50,7 @@
     ]
   },
   "dependencies": {
+    "@babel/polyfill": "^7.4.4",
     "ajv": "^6.10.0",
     "async": "^2.6.2",
     "body-parser": "^1.18.3",
