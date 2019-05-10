@@ -2,6 +2,7 @@
 const { Physician } = require('./physician');
 const { Patient } = require('./patient');
 const { MedicalProcedure } = require('./medical-procedure');
+const { MedicalDiagnosis } = require('./medical-diagnosis');
 
 class MedicalConsultation {
     protocol: number;
@@ -10,6 +11,7 @@ class MedicalConsultation {
     patient: Patient;
     physician: Physician;
     procedures: MedicalProcedure[];
+    diagnosis: MedicalDiagnosis[];
 
     constructor(date: Date, prescription: string, patient: Patient, physician: Physician) {
         this.date = date;

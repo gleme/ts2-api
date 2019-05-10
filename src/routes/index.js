@@ -9,7 +9,7 @@ router.use('/patient', patientRouter);
 router.use('/physician', physicianRouter);
 
 router.get('/ping', (req, res) => {
-    res.status(200).end();
+  res.status(200).end();
 });
 
 module.exports = router;

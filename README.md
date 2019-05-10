@@ -1,6 +1,6 @@
-# express-boilerplate
+# ts2-api
 
-This is an boilerplate of an express app for a initial setup on TypeORM, Expressjs, and Mocha Tests. It also includes TDD workflow and QA linting rules.
+This is an express api for a initial setup on TypeORM, Expressjs, and Mocha Tests. It also includes TDD workflow and QA linting rules for Scrum Team 2 - Physician Segment.
 
 ## Getting Started
 
