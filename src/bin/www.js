@@ -2,6 +2,7 @@
  * Load Environment Variables
  */
 require('dotenv').config();
+require('@babel/polyfill');
 const { createConnection, getConnectionOptions } = require('typeorm');
 const { MongoClient } = require('mongodb');
 const { host, port, env } = require('../config/api.config');
