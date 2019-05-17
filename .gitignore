@@ -36,6 +36,7 @@ node_modules
 
 # Output of 'npm pack'
 *.tgz
+*.zip
 
 # Yarn Integrity file
 .yarn-integrity
@@ -48,7 +49,7 @@ node_modules
 
 # Environment variables
 .env
-.env*
+*.env
 
 # Code Coverage Reports
 .nyc_output
